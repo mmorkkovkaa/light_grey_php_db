@@ -25,19 +25,19 @@ include("db.php");
                         </div>
                     <ul class="menu">
                         <li class="menu_link shadow">
-                            <a href="index.html">Home</a>
+                            <a href="index.php">Home</a>
                         </li>
                         <li class="menu_link shadow">
-                            <a href="pages/news.html">Latest News</a>
+                            <a href="news.php">Latest News</a>
                         </li>
                         <li class="menu_link shadow">
-                            <a href="pages/porfolio.html">Portfolio</a>
+                            <a href="porfolio.php">Portfolio</a>
                         </li>
                         <li class="menu_link shadow">
-                            <a href="pages/aboutus.html">About Us</a>
+                            <a href="aboutus.php">About Us</a>
                         </li>
                         <li class="menu_link">
-                            <a href="pages/contact.html">Contact</a>
+                            <a href="contact.php">Contact</a>
                         </li>
                     </ul>
 
@@ -52,34 +52,37 @@ include("db.php");
             <?php
             $result = mysqli_query($connect, "SELECT * FROM first_tb");
 
-            // Проверяем, есть ли данные
+            
             if (mysqli_num_rows($result) > 0) {
-                // Выводим данные каждой строки
+               
                 while ($myrow = mysqli_fetch_array($result)) {
                     printf('
                         <div class="welcome_left">
                             <h1>%s</h1>
                             <p>%s</p>
-                            <button>Learn More</button>
+                            <button><a href="detail.php?id=%s">Learn More</a></button>
                         </div>
                         <div class="welcome_right">
                             <img src="%s" alt="Image">
                         </div>',
                         $myrow['title'],
                         $myrow['description'],
+                        $myrow['id'],
                         $myrow['img']
+                        
                     );
                 }
             } else {
                 echo "0 результатов";
             }
 
-            // Освобождаем ресурсы
+           
             mysqli_free_result($result);
 
             
         
             ?>
+            
         </div>
     </div>
 </div>
@@ -102,10 +105,11 @@ include("db.php");
                                 <div class="card">
                                     <h3>%s</h3>
                                     <p>%s</p>
-                                    <button>More</button>
+                                    <button><a href="detail_1.php?id=%s">Learn More</a></button>
                                 </div>',
                                 $myrow['title'],
-                                $myrow['description']
+                                $myrow['description'],
+                                $myrow['id']
                             );
                         }
                     } else {
@@ -158,10 +162,22 @@ include("db.php");
 
                     
                     mysqli_free_result($result);
-
-                
                             ?>
-                    <button class="gray">View All</button>
+
+                            <?php
+                    $result = mysqli_query($connect, "SELECT * FROM we_are");
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($myrow = mysqli_fetch_array($result)) {
+                            printf('<button><a href="detail_2.php?id=%s">Learn More</a></button>',
+                            $myrow['id']
+                            );
+                        }
+                    } else {
+                        echo "0 результатов";
+                    }
+                    mysqli_free_result($result);
+                            ?>
+                    
                 </div>
 
 
@@ -257,7 +273,19 @@ include("db.php");
                             ?>
                             </ul> 
                         </div>
-                        <button class="gray">More</button>
+                        <?php
+                    $result = mysqli_query($connect, "SELECT * FROM we_are");
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($myrow = mysqli_fetch_array($result)) {
+                            printf('<button><a href="detail_2.php?id=%s">More</a></button>',
+                            $myrow['id']
+                            );
+                        }
+                    } else {
+                        echo "0 результатов";
+                    }
+                    mysqli_free_result($result);
+                            ?>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,88 @@
+/*aboutus*/
+.inner_aboutus {
+  margin-top: 35px;
+  display: flex;
+}
+.who_we_are {
+  width: 550px;
+  margin-bottom: 30px;
+}
+
+.who_we_are button {
+  margin-left: 470px;
+}
+
+.text_img {
+  display: flex;
+  margin-top: 20px;
+}
+.text_img p {
+  font-size: 14px;
+}
+.text_img p a {
+  text-decoration-line: revert;
+}
+.text_img p i {
+  color: #2e888c;
+}
+
+.text_img img {
+  width: 134px;
+  height: 176px;
+  margin-right: 30px;
+}
+
+/*service*/
+.service {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.service p {
+  margin-top: 20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+/*our_news*/
+.our_news {
+  margin-left: 40px;
+}
+.our_news .news {
+  width: 300px;
+}
+.our_news button {
+  margin-left: 230px;
+}
+.our_news .bottom {
+  margin-top: 60px;
+}
+.our_news .news img {
+  width: 100px;
+  height: 100px;
+}
+.our_news .gray_line {
+  width: 300px;
+}
+.our_news .text-content p {
+  font-size: 15px;
+}
+
+/*testimonials*/
+.testimonials {
+  margin-top: 60px;
+  width: 300px;
+}
+
+.testimonials p {
+  margin-top: 10px;
+  font-size: 15px;
+  font-style: italic;
+  margin-bottom: 20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.testimonials i {
+  color: #2e888c;
+}

@@ -47,7 +47,7 @@ input:focus {
 
 a {
   text-decoration: none;
-  color: #47a7ce;
+  color: #030303;
 }
 
 a:link {
@@ -57,6 +57,7 @@ a:link {
 a:hover {
   color: #030303;
 }
+
 a:active {
   color: #030303;
 }
