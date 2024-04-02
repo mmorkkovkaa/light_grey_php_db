@@ -19,6 +19,7 @@ include("db.php");
                 <div class="inner_header">
                         <div class="search">
                             <h2>Light Grey</h2>
+                            
                             <form>
                                 <input type="text" id="search" name="q" placeholder="Search..." />
                             </form>
@@ -31,15 +32,34 @@ include("db.php");
                             <a href="news.php">Latest News</a>
                         </li>
                         <li class="menu_link shadow">
-                            <a href="porfolio.php">Portfolio</a>
+                            <a href="portfolio.php">Portfolio</a>
                         </li>
                         <li class="menu_link shadow">
                             <a href="aboutus.php">About Us</a>
                         </li>
-                        <li class="menu_link">
+                        <li class="menu_link shadow">
                             <a href="contact.php">Contact</a>
                         </li>
+                        <li class="menu_link ">
+                            <a href="admin.php">Admin</a>
+                        </li>
                     </ul>
+                    <?php
+                    if(isset($_COOKIE['user'])) {
+                        echo '<h3>Пользователь: ' . $_COOKIE['user'] . '</h3>';
+                        echo '<button style="background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding:5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 15px;
+                        cursor: pointer;">';
+                        echo '<a href="exit.php" style="color: white; text-decoration: none;">Покинуть</a>';
+                        echo '</button>';
+                    }
+                    ?>
 
                 </div>
             </div>

@@ -8,12 +8,21 @@ include("db.php");
     <title>Light Grey</title>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../core.css" />
-    <link rel="stylesheet" href="../css/contact.css" />
+    <link rel="stylesheet" href="../css/contact..css" />
     <link rel="stylesheet" href="../header_footer.css" />
     <meta
       name="viewport"
       content="width=1200px, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <style>
+        .submitted-info {
+            display: flex;
+            flex-direction: column;
+            margin-right: 550px;
+            margin-bottom: 30px;
+            margin-top: 10px;
+        }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -44,9 +53,12 @@ include("db.php");
               <li class="menu_link shadow">
                 <a href="../aboutus.php">About Us</a>
               </li>
-              <li class="menu_link">
-                <a href="../contact.php">Contact</a>
-              </li>
+              <li class="menu_link shadow">
+                            <a href="../contact.php">Contact</a>
+                        </li>
+                        <li class="menu_link ">
+                            <a href="../admin.php">Admin</a>
+                        </li>
             </ul>
           </div>
         </div>
@@ -97,6 +109,7 @@ include("db.php");
 
 
             <?php
+
     function display_form($name = "", $email = "", $subject = "", $message = "")
     {
         echo "<div class='info_form'>";
@@ -124,10 +137,12 @@ include("db.php");
         echo "</div>";
         echo "</form>";
         echo "</div>";
+        echo "</div>";
     }
-
+  
     
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_record"])) {
+
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $subject = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_STRING);
@@ -138,15 +153,11 @@ include("db.php");
         $stmt->bind_param("ssss", $name, $email, $subject, $message);
         $stmt->execute();
 
-        if ($stmt->affected_rows === 1) {
-            echo "Запись успешно добавлена";
-        } else {
-            echo "Ошибка: " . $stmt->error;
-        }
 
         $stmt->close();
     }
 
+  
     
     if (isset($_GET["delete_id"])) {
         $delete_id = filter_input(INPUT_GET, 'delete_id', FILTER_VALIDATE_INT);
@@ -177,33 +188,33 @@ include("db.php");
     
     display_form();
 
-    
-$sql = "SELECT * FROM contact_form_data";
-$result = mysqli_query($connect, $sql);
 
-
-if (mysqli_num_rows($result) > 0) {
-    
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<div class='submitted-info'>";
-        echo "<h5>Submitted Information</h5>";
-        echo "<p><strong>Name:</strong> " . $row['name'] . "</p>";
-        echo "<p><strong>Email:</strong> " . $row['email'] . "</p>";
-        echo "<p><strong>Subject:</strong> " . $row['subject'] . "</p>";
-        echo "<p><strong>Message:</strong> " . $row['message'] . "</p>";
-        
-        echo "<button><a href='edit_record.php?id=" . $row['id'] . "'>Редактировать</a></button>";
-        
-        echo "<button><a href='delete_record.php?id=" . $row['id'] . "'>Удалить</a></button>";
-        echo "</div>";
-    }
-} else {
-    echo "0 результатов";
-}
+    if (!isset($_COOKIE['user'])) {
+      echo "<h5>Чтобы увидеть дополнительную информацию, пожалуйста,<button><a href='admin.php'>Войдите</a></button> или <button><a href='register.php'>Зарегистрируйтесь</a></button>.</h5>";
+  } else {
+      $sql = "SELECT * FROM contact_form_data";
+      $result = mysqli_query($connect, $sql);
+  
+      if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+              echo "<div class='submitted-info'>";
+              echo "<h5>Submitted Information</h5>";
+              echo "<p><strong>Name:</strong> " . $row['name'] . "</p>";
+              echo "<p><strong>Email:</strong> " . $row['email'] . "</p>";
+              echo "<p><strong>Subject:</strong> " . $row['subject'] . "</p>";
+              echo "<p><strong>Message:</strong> " . $row['message'] . "</p>";
+              echo "<button><a href='edit_record.php?id=" . $row['id'] . "'>Редактировать</a></button>";
+              echo "<button><a href='delete_record.php?id=" . $row['id'] . "'>Удалить</a></button>";
+              echo "</div>";
+          }
+      } else {
+          echo "0 результатов";
+      }
+  }
 
 mysqli_close($connect);
     ?>
-          </div>
+          
         </div>
       </div>
 
